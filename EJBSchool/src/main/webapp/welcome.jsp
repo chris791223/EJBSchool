@@ -2,7 +2,15 @@
 
 <!-- getAttribute -->
 
-<a href="students.jsp" type="button" class="btn btn-primary btn-lg col-md-5 mt-5">Students</a>
-<a href="books.jsp" type="button" class="btn btn-secondary btn-lg col-md-5 mt-5">Books</a>
+<div class="row">
+	<div class="col-sm-6 mt-5">
+		<a href="students.jsp" type="button" class="btn-block btn-primary btn-lg text-center">Students</a>
+	</div>
+	<div class="col-sm-6 mt-5">
+		<a href="books.jsp" type="button" class="btn-block btn-secondary btn-lg text-center">Books</a>
+	</div>
+</div>
+
+
 
 <jsp:include page="footer.jsp"></jsp:include>
