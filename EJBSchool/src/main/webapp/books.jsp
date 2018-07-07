@@ -1,7 +1,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <h3 class="mt-5 mb-3 text-center">Books</h3>
-<a href="NewProduct.jsp" class="btn btn-primary mb-3">New Book</a>
+<a href="newBook.jsp" class="btn btn-primary mb-3">New Book</a>
 <table class="table">
   <thead>
     <tr>

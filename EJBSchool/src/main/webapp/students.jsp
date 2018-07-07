@@ -1,7 +1,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <h3 class="mt-5 mb-3 text-center">Students</h3>
-<a href="NewProduct.jsp" class="btn btn-primary mb-3">New Student</a>
+<a href="newStudent.jsp" class="btn btn-primary mb-3">New Student</a>
 <table class="table">
 	<thead>
 		<tr>
