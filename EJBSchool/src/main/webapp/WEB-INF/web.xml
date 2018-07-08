@@ -12,6 +12,6 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>LibraryController</servlet-name>
-  	<url-pattern>/LibraryController</url-pattern>
+  	<url-pattern>/Library</url-pattern>
   </servlet-mapping>
 </web-app>
