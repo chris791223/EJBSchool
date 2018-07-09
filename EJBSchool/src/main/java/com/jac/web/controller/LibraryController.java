@@ -37,12 +37,38 @@ public class LibraryController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		//session.setAttribute("username", "user");	// remove this line later(when project completed)
-		//session.setAttribute("username", "teacher");	// remove this line later(when project completed)
+		session.setAttribute("username", "teacher");	// remove this line later(when project completed)
+		
+		
+		/////////////////
+		BookDAO bookDAO = new BookDAO();
+		String command = (String)request.getParameter("command");
+		if(command != null && command.equals("delete")) {
+			int bId = Integer.parseInt(request.getParameter("bId"));
+			
+			if(bId <= 0) {
+				String error = "This book doesn't exist in our system.";
+				request.setAttribute("error", error);				
+			}else {
+				bookDAO.deleteBook(bId);
+			}			
+			//doGet(request, response);
+		}else if (command != null && command.equals("update")) {
+			int bId = Integer.parseInt(request.getParameter("bId"));
+			Book book = bookDAO.getBookById(bId);
+			
+			request.setAttribute("book", book);
+			RequestDispatcher rd = request.getRequestDispatcher("newBook.jsp");
+			rd.forward(request,  response);
+			return;
+		}
+		///////////////
+		
 		
 		if(session.getAttribute("username") == null) {
 			response.sendRedirect("index.jsp");
 		}else {
-			ArrayList<Book> books = (new BookDAO()).getAllBooks();
+			ArrayList<Book> books = bookDAO.getAllBooks();
 			
 			request.setAttribute("books",  books);
 			
@@ -77,24 +103,7 @@ public class LibraryController extends HttpServlet {
 				bookDAO.modifyBook(bId, name, author);
 			}			
 			doGet(request, response);
-		}else if(command.equals("delete")) {
-			int bId = Integer.parseInt(request.getParameter("bId"));
-			
-			if(bId <= 0) {
-				String error = "This book doesn't exist in our system.";
-				request.setAttribute("error", error);				
-			}else {
-				bookDAO.deleteBook(bId);
-			}			
-			doGet(request, response);
-		}else if (command.equals("update")) {
-			int bId = Integer.parseInt(request.getParameter("bId"));
-			Book book = bookDAO.getBookById(bId);
-			
-			request.setAttribute("book", book);
-			RequestDispatcher rd = request.getRequestDispatcher("newBook.jsp");
-			rd.forward(request,  response);
-		}else if(command.equals("search")) {
+		}else  if(command.equals("search")) {
 			int option = Integer.parseInt(request.getParameter("option"));
 			String keyword = request.getParameter("keyword");
 			ArrayList<Book> books = null;
@@ -110,7 +119,5 @@ public class LibraryController extends HttpServlet {
 		}
 		
 	}
-	
-
 
 }

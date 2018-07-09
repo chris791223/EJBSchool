@@ -48,12 +48,10 @@ if(username != null && username.equals("teacher")){%>
 	      <td><%=book.getId() %></td>
 	      <td><%=book.getName() %></td>
 	      <td><%=book.getAuthor() %></td>
-	      <% if(username != null && username.equals("teacher")){ %>
-				
-				<td scope="col" style="text-align:right">
-					
+	      <% if(username != null && username.equals("teacher")){ %>				
+				<td scope="col" style="text-align:right">					
 					<a href="Library?command=update&bId=<%= book.getId() %>" > Edit</a> |
-					<a href="Library?command=delete&bId=<%= book.getId() %>" > Delete</a>
+					<a href="Library?command=delete&bId=<%= book.getId() %>" onclick="return confirm('Are you sure you want to delete this book?')"> Delete</a>
 				</td>
 		  <%} %>
 	    </tr>

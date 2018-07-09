@@ -14,6 +14,7 @@ if(username == null || !username.equals("teacher")){%>
 		book.setAuthor("");
 	}
 %>
+<br/><br>
 <div class="row">
 	<div class=col-md-4></div>
 	<div class="text-center col-md-4">
@@ -35,7 +36,9 @@ if(username == null || !username.equals("teacher")){%>
 			<input type="text" name="author" class="form-control mb-2" value="<%=book.getAuthor() %>" placeholder="Author"
 				required>
 				 
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">
+			<% if(book.getId() <= 0){ %>Create<%}else{ %>Update<%} %>
+			</button>
 		</form>
 	</div>
 	<div class=col-md-4></div>
