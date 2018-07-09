@@ -2,7 +2,11 @@
 <div class="row">
 	<div class=col-md-3></div>
 	<div class="text-center col-md-6">
-		<form action="login" method="post" class="form-signin">
+		<form action="LoginController" method="post" class="form-signin">
+			<p style="color:red;"><% 
+				if(request.getAttribute("error") != null)
+				out.print(request.getAttribute("error"));%>
+			</p>
 			<h1 class="h3 mt-3 mb-3 font-weight-normal">Please sign in</h1>
 			<label for="inputEmail" class="sr-only">User name</label> <input
 				type="text" class="form-control mb-2" placeholder="Username"

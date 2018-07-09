@@ -13,7 +13,7 @@ if(username != null && username.equals("teacher")){%>
 <% ArrayList<Book> books = (ArrayList<Book>)request.getAttribute("books");
 	if(books == null){
 %>
-	<h1> There are no book in the library.</h1>
+	<h1> There are no books in the library.</h1>
 <%}else{ %>
 	<form action="Library" method="post">
 		<input type="hidden" id="command" name="command" value="search">
