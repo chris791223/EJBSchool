@@ -13,6 +13,7 @@
 				required autofocus> <label for="password" class="sr-only">Password</label>
 			<input type="password" class="form-control mb-2"
 				placeholder="Password" required>
+			<input type="hidden" name="command" value="login"/>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
 				in</button>
 		</form>

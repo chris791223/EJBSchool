@@ -1,3 +1,4 @@
+<%@ page import = "com.jac.web.model.Student" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,6 +32,18 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
+  </div>
+  <div>
+  	<%! Student student = null; %>
+  	<% if(session.getAttribute("user") instanceof Student){
+  		student = (Student)session.getAttribute("user");
+  		out.print("Logged in as: " + student.getUserName());
+  	%>
+  	<form action="LoginController"class="form-inline my-2 my-lg-0" method="post">
+  		<input type="hidden" name="command" value="logout"/>
+  		<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Log out</button>
+  	</form>
+  	<%} %>
   </div>
 </nav>
 

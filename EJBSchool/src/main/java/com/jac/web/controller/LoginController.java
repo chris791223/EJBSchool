@@ -39,40 +39,49 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		StudentDAO student = null;
-		Student s1 = null;
-		try {
-			student = new StudentDAO();
-			s1 = student.getStudentByUsername(username);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		if(s1 == null) {
+		String command = request.getParameter("command");
+		if(command.equals("login")) {
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
+			
+			StudentDAO student = null;
+			Student s1 = null;
+			try {
+				student = new StudentDAO();
+				s1 = student.getStudentByUsername(username);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			if(s1 == null) {
+				request.setAttribute("username", null);
+				request.setAttribute("error", "User does not exist!");
+				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				rd.forward(request, response);
+			}
+			
+			if(password.equals(s1.getPassword())) {
+				request.setAttribute("username", username);
+				request.setAttribute("error", null);
+				
+				s1.setUserName(username);
+				s1.setPassword(password);
+				HttpSession session = request.getSession();
+				session.setAttribute("user", s1);
+				
+				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+				rd.forward(request, response);
+			}else {
+				request.setAttribute("username", null);
+				request.setAttribute("error", "Wrong password");
+				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+				rd.forward(request, response);
+			}
+		}else if(command.equals("logout")) {
+			request.setAttribute("user", null);
 			request.setAttribute("username", null);
-			request.setAttribute("error", "User does not exist!");
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);
-		}
-		
-		if(password.equals(s1.getPassword())) {
-			request.setAttribute("username", username);
 			request.setAttribute("error", null);
-			
-			s1.setUserName(username);
-			s1.setPassword(password);
-			HttpSession session = request.getSession();
-			session.setAttribute("user", s1);
-			
-			RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
-			rd.forward(request, response);
-		}else {
-			request.setAttribute("username", null);
-			request.setAttribute("error", "Wrong password");
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
 		}
