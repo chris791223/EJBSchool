@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		StudentDAO student = new StudentDAO();
-		Student s1 = student.getStudent(username);
+		Student s1 = student.getStudentByUsername(username);
 		
 		if(s1 == null) {
 			request.setAttribute("username", null);

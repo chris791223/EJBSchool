@@ -1,18 +1,63 @@
 package com.jac.web.model;
 
 public class Student {
-	private int studentID;
-	private String username;
+	private int studentId;
+	private String userName;
 	private String password;
 	private String firstName;
 	private String lastName;
 	private String city;
+	private String postalCode;
 	
-	public int getStudentID() {
-		return studentID;
+	// Construction without parameters
+	public Student() {
+		
 	}
-	public void setStudentID(int studentID) {
-		this.studentID = studentID;
+	
+	// Construction with parameters
+		public Student(int studentId, String userName, String firstName, String lastName, String city,
+				String postalCode) {
+			super();
+			this.studentId = studentId;
+			this.userName = userName;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.city = city;
+			this.postalCode = postalCode;
+		}
+		
+	// Construction with parameters
+	public Student(int studentId, String userName, String password, String firstName, String lastName, String city,
+			String postalCode) {
+		super();
+		this.studentId = studentId;
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.city = city;
+		this.postalCode = postalCode;
+	}
+	
+	// Getters & Setters
+	public int getStudentId() {
+		return studentId;
+	}
+	
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -38,23 +83,13 @@ public class Student {
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
-	private String postalCode;
+	/**
+	 *  Get full name by combining first and last name
+	 * @return full name
+	 */
+	public String getFullName() {
+		return firstName + " " + lastName;
+	}
 	
-	public String getUsername() {
-		return username;
-	}
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	@Override
-	public String toString() {
-		return "Student [studentID=" + studentID + ", username=" + username + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", city=" + city + ", postalCode=" + postalCode + "]";
-	}
+	
 }
