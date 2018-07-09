@@ -32,12 +32,10 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-  </div>
-  <div>
-  	<%! Student student = null; %>
+    <%! Student student = null; %>
   	<% if(session.getAttribute("user") instanceof Student){
   		student = (Student)session.getAttribute("user");
-  		out.print("Logged in as: " + student.getUserName());
+  		out.print("<span style='color:white'>&nbsp; Logged in as: " + student.getUserName() + "&nbsp;</span>");
   	%>
   	<form action="LoginController"class="form-inline my-2 my-lg-0" method="post">
   		<input type="hidden" name="command" value="logout"/>

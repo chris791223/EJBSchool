@@ -8,10 +8,11 @@
 				out.print(request.getAttribute("error"));%>
 			</p>
 			<h1 class="h3 mt-3 mb-3 font-weight-normal">Please sign in</h1>
-			<label for="inputEmail" class="sr-only">User name</label> <input
-				type="text" class="form-control mb-2" placeholder="Username"
-				required autofocus> <label for="password" class="sr-only">Password</label>
-			<input type="password" class="form-control mb-2"
+			<label for="inputEmail" class="sr-only">User name</label> 
+			<input type="text" class="form-control mb-2" name="username" placeholder="Username"
+				required autofocus /> 
+			<label for="password" class="sr-only">Password</label>
+			<input type="password" class="form-control mb-2" name="password"
 				placeholder="Password" required>
 			<input type="hidden" name="command" value="login"/>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign

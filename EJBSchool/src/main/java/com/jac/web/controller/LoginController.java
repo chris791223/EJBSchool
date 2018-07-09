@@ -39,6 +39,7 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
+		HttpSession session = request.getSession();
 		String command = request.getParameter("command");
 		if(command.equals("login")) {
 			String username = request.getParameter("username");
@@ -55,32 +56,31 @@ public class LoginController extends HttpServlet {
 			}
 			
 			if(s1 == null) {
-				request.setAttribute("username", null);
+				session.setAttribute("username", null);
 				request.setAttribute("error", "User does not exist!");
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.forward(request, response);
 			}
 			
 			if(password.equals(s1.getPassword())) {
-				request.setAttribute("username", username);
+				session.setAttribute("username", username);
 				request.setAttribute("error", null);
 				
 				s1.setUserName(username);
 				s1.setPassword(password);
-				HttpSession session = request.getSession();
 				session.setAttribute("user", s1);
 				
 				RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
 				rd.forward(request, response);
 			}else {
-				request.setAttribute("username", null);
+				session.setAttribute("username", null);
 				request.setAttribute("error", "Wrong password");
 				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 				rd.forward(request, response);
 			}
 		}else if(command.equals("logout")) {
-			request.setAttribute("user", null);
-			request.setAttribute("username", null);
+			session.setAttribute("user", null);
+			session.setAttribute("username", null);
 			request.setAttribute("error", null);
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 			rd.forward(request, response);
