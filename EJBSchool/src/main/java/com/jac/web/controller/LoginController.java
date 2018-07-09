@@ -1,6 +1,7 @@
 package com.jac.web.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.jac.web.dao.StudentDAO;
+import com.jac.web.dao.TeacherDAO;
 import com.jac.web.model.Student;
+import com.jac.web.model.Teacher;
 
 /**
  * Servlet implementation class LoginController
@@ -47,6 +50,8 @@ public class LoginController extends HttpServlet {
 			
 			StudentDAO student = null;
 			Student s1 = null;
+			TeacherDAO teacher = null;
+			Teacher t1 = null;
 			try {
 				student = new StudentDAO();
 				s1 = student.getStudentByUsername(username);
@@ -56,10 +61,36 @@ public class LoginController extends HttpServlet {
 			}
 			
 			if(s1 == null) {
-				session.setAttribute("username", null);
-				request.setAttribute("error", "User does not exist!");
-				RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-				rd.forward(request, response);
+				try {
+					teacher = new TeacherDAO();
+					t1 = teacher.getTeacherByUsername(username);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(t1 == null) {
+					session.setAttribute("username", null);
+					request.setAttribute("error", "User does not exist!");
+					RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+					rd.forward(request, response);
+				}
+				
+				if (password.equals(t1.getPassword())){
+					session.setAttribute("username", username);
+					request.setAttribute("error", null);
+					
+					t1.setUserName(username);
+					t1.setPassword(password);
+					session.setAttribute("user", t1);
+					
+					RequestDispatcher rd = request.getRequestDispatcher("welcome.jsp");
+					rd.forward(request, response);
+				}else {
+					session.setAttribute("username", null);
+					request.setAttribute("error", "Wrong password");
+					RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+					rd.forward(request, response);
+				}
 			}
 			
 			if(password.equals(s1.getPassword())) {

@@ -1,4 +1,5 @@
 <%@ page import = "com.jac.web.model.Student" %>
+<%@ page import = "com.jac.web.model.Teacher" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -32,10 +33,17 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <%! Student student = null; %>
-  	<% if(session.getAttribute("user") instanceof Student){
-  		student = (Student)session.getAttribute("user");
-  		out.print("<span style='color:white'>&nbsp; Logged in as: " + student.getUserName() + "&nbsp;</span>");
+    <%! Student student = null;
+    	Teacher teacher = null;%>
+    <% if(session.getAttribute("user") != null){
+    
+	    if(session.getAttribute("user") instanceof Teacher){
+	   		teacher = (Teacher) session.getAttribute("user");
+	   		out.print("<span style='color:white'>&nbsp; Logged in as: " + teacher.getUserName() + "&nbsp;</span>");
+    	}else if(session.getAttribute("user") instanceof Student){
+	   		student = (Student)session.getAttribute("user");
+	   		out.print("<span style='color:white'>&nbsp; Logged in as: " + student.getUserName() + "&nbsp;</span>");
+    	}
   	%>
   	<form action="LoginController"class="form-inline my-2 my-lg-0" method="post">
   		<input type="hidden" name="command" value="logout"/>
