@@ -18,7 +18,7 @@ if(username != null && username.equals("teacher")){%>
 	<form action="Library" method="post">
 		<input type="hidden" id="command" name="command" value="search">
 		<div class="row">
-			<div class="input-group mb-3 col col-sm-2">
+			<div class="input-group mb-3 col col-sm-3">
 			  <div class="input-group-prepend">
 			    <label class="input-group-text" for="inputGroupSelect01">Options</label>
 			  </div>
@@ -27,7 +27,7 @@ if(username != null && username.equals("teacher")){%>
 			    <option value="2">Author</option>
 			  </select>
 			</div>
-			<div class="form-group col col-sm-10">
+			<div class="form-group col col-sm-9">
 		      <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Book Title for Search">
 		    </div>
 		</div>
@@ -39,7 +39,6 @@ if(username != null && username.equals("teacher")){%>
 	      <th scope="col">Name</th>
 	      <th scope="col">Author</th>
 	      <th scope="col"></th>
-	      <th scope="col"></th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -50,19 +49,11 @@ if(username != null && username.equals("teacher")){%>
 	      <td><%=book.getName() %></td>
 	      <td><%=book.getAuthor() %></td>
 	      <% if(username != null && username.equals("teacher")){ %>
+				
 				<td scope="col" style="text-align:right">
-					<form action="Library" method="post">
-					    <input type="hidden" id="command" name="command" value="delete" />								
-						<input type="hidden" id="bId" name="bId" value="<%= book.getId() %>">
-						<button type="submit" class="btn btn-sm btn-Danger">Delete</button>
-					</form>
-				</td>
-				<td scope="col" style="text-align:right">
-					<form action="Library" method="post">
-					    <input type="hidden" id="command" name="command" value="update" />								
-						<input type="hidden" id="bId" name="bId" value="<%= book.getId() %>">
-						<button type="submit" class="btn btn-sm btn-Danger">Modify</button>
-					</form>
+					
+					<a href="Library?command=update&bId=<%= book.getId() %>" > Edit</a> |
+					<a href="Library?command=delete&bId=<%= book.getId() %>" > Delete</a>
 				</td>
 		  <%} %>
 	    </tr>

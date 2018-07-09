@@ -37,7 +37,7 @@ public class LibraryController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		//session.setAttribute("username", "user");	// remove this line later(when project completed)
-		session.setAttribute("username", "teacher");	// remove this line later(when project completed)
+		//session.setAttribute("username", "teacher");	// remove this line later(when project completed)
 		
 		if(session.getAttribute("username") == null) {
 			response.sendRedirect("index.jsp");

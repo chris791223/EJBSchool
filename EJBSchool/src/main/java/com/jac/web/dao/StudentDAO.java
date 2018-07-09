@@ -36,28 +36,28 @@ public class StudentDAO {
 	public Student getStudentByUsername(String username) throws SQLException {
 
 		String sql = "SELECT * FROM students WHERE userName = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
 
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, username);
+		stmt.setString(1, username);
 
-			ResultSet result = stmt.executeQuery();
-			if (result.next()) {
-				Student student = new Student(
-						result.getInt("studentId"), 
-						result.getString("username"), 
-						result.getString("password"),
-						result.getString("firstName"),
-						result.getString("lastName"),
-						result.getString("city"),
-						result.getString("postalCode"));
-				
-				return student;
-				
-			} else {
-				
-				return null;
-				
-			}
+		ResultSet result = stmt.executeQuery();
+		if (result.next()) {
+			Student student = new Student(
+					result.getInt("studentId"), 
+					result.getString("username"), 
+					result.getString("password"),
+					result.getString("firstName"),
+					result.getString("lastName"),
+					result.getString("city"),
+					result.getString("postalCode"));
+			
+			return student;
+			
+		} else {
+			
+			return null;
+			
 		}
 
 	}
@@ -72,28 +72,27 @@ public class StudentDAO {
 
 		String sql = "SELECT * FROM students WHERE studentId = ?";
 
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setInt(1, id);
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, id);
 
-			ResultSet result = stmt.executeQuery();
+		ResultSet result = stmt.executeQuery();
+		
+		if (result.next()) {
+			Student student = new Student(
+					result.getInt("studentId"), 
+					result.getString("username"), 
+					result.getString("password"),
+					result.getString("firstName"),
+					result.getString("lastName"),
+					result.getString("city"),
+					result.getString("postalCode"));
 			
-			if (result.next()) {
-				Student student = new Student(
-						result.getInt("studentId"), 
-						result.getString("username"), 
-						result.getString("password"),
-						result.getString("firstName"),
-						result.getString("lastName"),
-						result.getString("city"),
-						result.getString("postalCode"));
-				
-				return student;
-				
-			} else {
-				
-				return null;
-				
-			}
+			return student;
+			
+		} else {
+			
+			return null;
+			
 		}
 
 	}
@@ -105,26 +104,26 @@ public class StudentDAO {
 	 */
 	public List<Student> getAllStudents() throws SQLException {
 		String sql = "SELECT * FROM students";
-		List<Student> studentList = new ArrayList<>();
+		ArrayList<Student> studentList = new ArrayList<Student>();
 
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
 
-			ResultSet result = stmt.executeQuery();
-			while (result.next()) {
-				Student student = new Student(
-						result.getInt("studentId"), 
-						result.getString("username"), 
-						result.getString("firstName"),
-						result.getString("lastName"),
-						result.getString("city"),
-						result.getString("postalCode"));
-				
-				studentList.add(student);
+		ResultSet result = stmt.executeQuery();
+		while (result.next()) {
+			Student student = new Student(
+					result.getInt("studentId"), 
+					result.getString("username"), 
+					result.getString("firstName"),
+					result.getString("lastName"),
+					result.getString("city"),
+					result.getString("postalCode"));
+			
+			studentList.add(student);
 
-			}
-
-			return studentList;
 		}
+
+		return studentList;
 	}
 
 	/**
@@ -135,16 +134,16 @@ public class StudentDAO {
 	public void addStudent(Student student) throws SQLException {
 		String sql = "INSERT INTO students (userName, password, firstName, lastName, city, postalCode) "
 				+ "VALUES (?, ?, ?, ?, ?, ?)";
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, student.getUserName());
-			stmt.setString(2, student.getPassword());
-			stmt.setString(3, student.getFirstName());
-			stmt.setString(4, student.getLastName());
-			stmt.setString(5, student.getCity());
-			stmt.setString(6, student.getPostalCode());		
-			
-			stmt.executeUpdate();
-		}
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, student.getUserName());
+		stmt.setString(2, student.getPassword());
+		stmt.setString(3, student.getFirstName());
+		stmt.setString(4, student.getLastName());
+		stmt.setString(5, student.getCity());
+		stmt.setString(6, student.getPostalCode());		
+		
+		stmt.executeUpdate();
 	}
 
 	/**
@@ -156,17 +155,17 @@ public class StudentDAO {
 		String sql = "UPDATE students SET "
 				+ "userName = ?, password = ?, firstName = ?, lastName = ?, city = ?, postalCode = ? WHERE studentId = ?";
 		
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setString(1, student.getUserName());
-			stmt.setString(2, student.getPassword());
-			stmt.setString(3, student.getFirstName());
-			stmt.setString(4, student.getLastName());
-			stmt.setString(5, student.getCity());
-			stmt.setString(6, student.getPostalCode());	
-			stmt.setInt(7, student.getStudentId());
-			
-			stmt.executeUpdate();
-		}
+		PreparedStatement stmt = conn.prepareStatement(sql);
+
+		stmt.setString(1, student.getUserName());
+		stmt.setString(2, student.getPassword());
+		stmt.setString(3, student.getFirstName());
+		stmt.setString(4, student.getLastName());
+		stmt.setString(5, student.getCity());
+		stmt.setString(6, student.getPostalCode());	
+		stmt.setInt(7, student.getStudentId());
+		
+		stmt.executeUpdate();
 	}
 
 	/**
@@ -177,10 +176,9 @@ public class StudentDAO {
 	public void deleteStudent(int id) throws SQLException {
 		String sql = "DELETE FROM students WHERE studentId = ?";
 		
-		try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-			stmt.setInt(1, id);
-			
-			stmt.executeUpdate();
-		}
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, id);
+		
+		stmt.executeUpdate();
 	}
 }
