@@ -42,8 +42,15 @@ public class LoginController extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		StudentDAO student = new StudentDAO();
-		Student s1 = student.getStudentByUsername(username);
+		StudentDAO student = null;
+		Student s1 = null;
+		try {
+			student = new StudentDAO();
+			s1 = student.getStudentByUsername(username);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		if(s1 == null) {
 			request.setAttribute("username", null);
@@ -56,7 +63,7 @@ public class LoginController extends HttpServlet {
 			request.setAttribute("username", username);
 			request.setAttribute("error", null);
 			
-			s1.setUsername(username);
+			s1.setUserName(username);
 			s1.setPassword(password);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", s1);
