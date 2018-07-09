@@ -2,7 +2,7 @@
 <%@page import="com.jac.web.model.Book"%>
 <jsp:include page="header.jsp"></jsp:include>
 
-<h3 class="mt-5 mb-3 text-center">Books</h3>
+<h3 class="mt-5 mb-3 text-center">Library</h3>
 
 <% String username = (String)session.getAttribute("username");
 if(username != null && username.equals("teacher")){%>
@@ -28,7 +28,7 @@ if(username != null && username.equals("teacher")){%>
 			  </select>
 			</div>
 			<div class="form-group col col-sm-9">
-		      <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Book Title for Search">
+		      <input type="text" class="form-control" id="keyword" name="keyword" placeholder="Keyword for Search">
 		    </div>
 		</div>
 	</form>	
