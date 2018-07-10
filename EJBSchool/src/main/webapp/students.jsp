@@ -1,6 +1,7 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <h3 class="mt-5 mb-3 text-center">Students</h3>
+<a href="newStudent.jsp" class="btn btn-primary mb-3">New Student</a>
 <table class="table">
 	<thead>
 		<tr>
@@ -25,7 +26,6 @@
 			<td>City1</td>
 			<td>Code1</td>
 			<td>
-				<a href="#">Add</a> |
 				<a href="#">Details</a> | 
 				<a href="#">Delete</a> |
 				<a href="#">Modify</a>
@@ -39,7 +39,6 @@
 			<td>City2</td>
 			<td>Code2</td>
 			<td>
-				<a href="#">Add</a> |
 				<a href="#">Details</a> |
 				<a href="#">Delete</a> |
 				<a href="#">Modify</a>
@@ -53,7 +52,6 @@
 			<td>City3</td>
 			<td>Code3</td>
 			<td>
-				<a href="#">Add</a> |
 				<a href="#">Details</a> |
 				<a href="#">Delete</a> |
 				<a href="#">Modify</a>
