@@ -1,10 +1,19 @@
+<%@page import="com.jac.web.model.Teacher"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.jac.web.model.Student"%>
 <jsp:include page="header.jsp"></jsp:include>
 
 <h3 class="mt-5 mb-3 text-center">Students</h3>
-<a href="StudentForm.jsp" class="btn btn-primary mb-3">New Student</a>
+
+<%
+if (session.getAttribute("user") instanceof Teacher){
+%>
+	<a href="StudentForm.jsp" class="btn btn-primary mb-3">New Student</a>
+<%
+}
+%>
+
 <table class="table">
 	<thead>
 		<tr>
@@ -13,7 +22,14 @@
 			<th scope="col">Full Name</th>
 			<th scope="col">City</th>
 			<th scope="col">Postal Code</th>
-			<th scope="col"></th>
+			<%
+			if (session.getAttribute("user") instanceof Teacher){
+			%>	
+				<th scope="col"></th>
+			<%
+			}	
+			%>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -31,7 +47,18 @@
 			<td><%=s.getFullName() %></td>
 			<td><%=s.getCity() %></td>
 			<td><%=s.getPostalCode() %></td>
-			<td><a href="EditStudent?id=<%=s.getStudentId() %>">Edit</a> | <a href="DeleteStudent?id=<%=s.getStudentId() %>">Delete</a> 
+			
+		<%
+		if (session.getAttribute("user") instanceof Teacher){
+		%>	
+			<td>
+				<a href="EditStudent?id=<%=s.getStudentId() %>">Edit</a> | 
+				<a href="DeleteStudent?id=<%=s.getStudentId() %>">Delete</a> 
+			</td>
+		<%
+		}	
+		%>
+			
 		</tr>
 	<%
 		}

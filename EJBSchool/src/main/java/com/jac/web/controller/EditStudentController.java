@@ -8,9 +8,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.jac.web.dao.StudentDAO;
 import com.jac.web.model.Student;
+import com.jac.web.model.Teacher;
 
 /**
  * Servlet implementation class EditStudentController
@@ -25,6 +27,13 @@ public class EditStudentController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		// Authorization check
+				HttpSession session = request.getSession();
+				if(!(session.getAttribute("user") instanceof Teacher)){
+					response.sendRedirect("index.jsp");
+				}
+
+				
 		// Get student id from student list
 		int id = Integer.parseInt(request.getParameter("id"));
 
